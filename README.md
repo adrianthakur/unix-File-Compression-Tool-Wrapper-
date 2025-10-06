@@ -1,6 +1,29 @@
 # unix-File-Compression-Tool-Wrapper-
 Provide a menu-driven script to compress and decompress files using available tools. Example: Choosing option 1 compresses notes.txt into notes.tar.gz.
 
+1. Menu-Driven Interface
+- Displays a clear, interactive menu with numbered options.
+- Allows users to choose between compression, decompression, and exit.
+2. File Compression
+- Compresses a file using tar -czf.
+- Automatically names the output as filename.tar.gz.
+- Uses gzip compression for efficient archiving.
+3. File Decompression
+- Decompresses .tar.gz files using tar -xzf.
+- Restores original file(s) from the archive.
+4. File Existence Validation
+- Checks if the input file exists before performing any operation.
+- Prevents errors by showing a message if the file is missing.
+5. Loop and Exit Control
+- Uses an infinite while true loop to keep the tool running.
+- Exits cleanly when the user selects option 3 using break.
+6. User-Friendly Design
+- Provides clear success and error messages.
+- Prompts are intuitive and beginner-friendly.
+
+
+
+
 
 
 #!/bin/bash
