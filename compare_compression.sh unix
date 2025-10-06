@@ -1,0 +1,42 @@
+#!/bin/bash
+# Compression Comparison Tool
+# Author: Adrian Thakur
+# Description: Compare ZIP and TAR.GZ compression for a given file
+
+# Step 1: Input filename
+read -p "Enter the filename to compare (e.g., notes.txt): " file
+
+# Step 2: Check if file exists
+if [ ! -f "$file" ]; then
+    echo "❌ File not found: $file"
+    exit 1
+fi
+
+# Step 3: Compress using ZIP
+zip -q "${file}.zip" "$file"
+
+# Step 4: Compress using TAR.GZ
+tar -czf "${file}.tar.gz" "$file"
+
+# Step 5: Get sizes
+orig_size=$(stat -c%s "$file")
+zip_size=$(stat -c%s "${file}.zip")
+tar_size=$(stat -c%s "${file}.tar.gz")
+
+# Step 6: Calculate ratios
+zip_ratio=$(echo "scale=2; $zip_size / $orig_size" | bc)
+tar_ratio=$(echo "scale=2; $tar_size / $orig_size" | bc)
+
+# Step 7: Display results
+echo "=============================="
+echo "📄 Original File Size: $orig_size bytes"
+echo "🗜️ ZIP File Size     : $zip_size bytes"
+echo "🗜️ TAR.GZ File Size  : $tar_size bytes"
+echo "------------------------------"
+echo "📊 ZIP Compression Ratio    : $zip_ratio"
+echo "📊 TAR.GZ Compression Ratio : $tar_ratio"
+echo "=============================="
+
+# Step 8: Cleanup (optional)
+# Uncomment below to delete compressed files after comparison
+# rm "${file}.zip" "${file}.tar.gz"
