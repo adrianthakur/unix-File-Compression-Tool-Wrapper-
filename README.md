@@ -23,6 +23,18 @@ Provide a menu-driven script to compress and decompress files using available to
 
 
 
+REQUIRMENTS : 
+- Written in Bash and runs in a Unix/Linux terminal
+- Uses standard tools: tar, gzip, gunzip
+- Provides a menu to compress, decompress, or exit
+- Accepts user input interactively
+- Validates file existence before processing
+- Compresses files into .tar.gz and extracts them bac
+
+
+
+
+
 
 
 
@@ -70,3 +82,29 @@ while true; do
     esac
     echo ""
 done
+
+USAGE : 
+- Option 1: Enter the name of the file you want to compress (e.g., notes.txt). It will create notes.txt.tar.gz.
+- Option 2: Enter the name of a .tar.gz file to decompress (e.g., notes.txt.tar.gz). It will extract the original file.
+- Option 3: Exit the tool.
+
+
+
+
+LAB PROJECT DETAILS : 
+Adrian Thakur
+241033060
+COURSE : unix lab  PROJECT : File Compression Tool (Wrapper)
+
+
+
+HOW IT WORKS :
+- Shows a menu with options to compress, decompress, or exit
+- Reads user input to select an action
+- Compresses files using tar -czf into .tar.gz format
+- Decompresses .tar.gz files using tar -xzf
+- Checks if the file exists before processing
+- Loops until the user chooses to exit
+
+
+
