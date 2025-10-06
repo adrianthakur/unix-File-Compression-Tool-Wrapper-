@@ -8,7 +8,7 @@ read -p "Enter the filename to compare (e.g., notes.txt): " file
 
 # Step 2: Check if file exists
 if [ ! -f "$file" ]; then
-    echo "❌ File not found: $file"
+    echo " File not found: $file"
     exit 1
 fi
 
@@ -29,12 +29,12 @@ tar_ratio=$(echo "scale=2; $tar_size / $orig_size" | bc)
 
 # Step 7: Display results
 echo "=============================="
-echo "📄 Original File Size: $orig_size bytes"
-echo "🗜️ ZIP File Size     : $zip_size bytes"
-echo "🗜️ TAR.GZ File Size  : $tar_size bytes"
+echo " Original File Size: $orig_size bytes"
+echo " ZIP File Size     : $zip_size bytes"
+echo " TAR.GZ File Size  : $tar_size bytes"
 echo "------------------------------"
-echo "📊 ZIP Compression Ratio    : $zip_ratio"
-echo "📊 TAR.GZ Compression Ratio : $tar_ratio"
+echo " ZIP Compression Ratio    : $zip_ratio"
+echo " TAR.GZ Compression Ratio : $tar_ratio"
 echo "=============================="
 
 # Step 8: Cleanup (optional)
