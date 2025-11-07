@@ -206,6 +206,7 @@ done
 LAB PROJECT DETAILS : 
 Adrian Thakur
 241033060
+BATCH : 24I12
 COURSE : unix lab  PROJECT : File Compression Tool (Wrapper)
 
 
