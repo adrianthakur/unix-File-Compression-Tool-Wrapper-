@@ -1,0 +1,93 @@
+#!/bin/bash
+
+# Unified Compression Tool - Bash CLI Utility
+
+# Feature Overview
+echo "=============================================="
+echo "         Welcome to Unified Compression Tool"
+echo "=============================================="
+echo "This tool provides the following features:"
+echo "1. Compress a file into .tar.gz format"
+echo "   - Uses tar and gzip to reduce file size for storage or transfer."
+echo "2. Decompress a .tar.gz archive"
+echo "   - Extracts files from a compressed .tar.gz archive."
+echo "3. Compare ZIP vs TAR.GZ compression"
+echo "   - Shows file sizes and compression ratios for both formats."
+echo "4. Exit"
+echo "   - Closes the tool."
+echo "=============================================="
+echo ""
+
+# Main Menu Loop
+while true; do
+    echo "=============================="
+    echo "     Unified Compression Tool"
+    echo "=============================="
+    echo "1. Compress a file (.tar.gz)"
+    echo "2. Decompress a .tar.gz file"
+    echo "3. Compare ZIP vs TAR.GZ compression"
+    echo "4. Exit"
+    echo "=============================="
+    read -p "Enter your choice [1-4]: " choice
+
+    case $choice in
+        1)
+            read -p "Enter the filename to compress (e.g., notes.txt): " filename
+            if [ -f "$filename" ]; then
+                tar -czf "${filename}.tar.gz" "$filename"
+                echo "File compressed to ${filename}.tar.gz"
+            else
+                echo "File not found: $filename"
+            fi
+            ;;
+        2)
+            read -p "Enter the .tar.gz file to decompress (e.g., notes.tar.gz): " compressed
+            if [ -f "$compressed" ]; then
+                tar -xzf "$compressed"
+                echo "File decompressed."
+            else
+                echo "File not found: $compressed"
+            fi
+            ;;
+        3)
+            read -p "Enter the filename to compare (e.g., notes.txt): " file
+            if [ ! -f "$file" ]; then
+                echo "File not found: $file"
+            else
+                if ! command -v zip &> /dev/null; then
+                    echo "Error: 'zip' command not found. Please install it to use this feature."
+                    continue
+                fi
+
+                zip -q "${file}.zip" "$file"
+                tar -czf "${file}.tar.gz" "$file"
+
+                orig_size=$(stat -c%s "$file")
+                zip_size=$(stat -c%s "${file}.zip")
+                tar_size=$(stat -c%s "${file}.tar.gz")
+
+                zip_ratio=$(echo "scale=2; $zip_size / $orig_size" | bc)
+                tar_ratio=$(echo "scale=2; $tar_size / $orig_size" | bc)
+
+                echo "=============================="
+                echo "Original File Size: $orig_size bytes"
+                echo "ZIP File Size     : $zip_size bytes"
+                echo "TAR.GZ File Size  : $tar_size bytes"
+                echo "------------------------------"
+                echo "ZIP Compression Ratio    : $zip_ratio"
+                echo "TAR.GZ Compression Ratio : $tar_ratio"
+                echo "=============================="
+
+                rm -f "${file}.zip" "${file}.tar.gz"
+            fi
+            ;;
+        4)
+            echo "Exiting the tool. Goodbye."
+            break
+            ;;
+        *)
+            echo "Invalid choice. Please enter 1, 2, 3, or 4."
+            ;;
+    esac
+    echo ""
+done
